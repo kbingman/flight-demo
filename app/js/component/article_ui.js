@@ -7,10 +7,9 @@ define(function (require) {
   */
 
   var defineComponent = require('flight/lib/component');
-  var withHogan = require('flight-hogan/lib/with_hogan');
   var hogan = require('hogan');
-  
-  console.log(hogan)
+  var withHogan = require('flight-hogan/lib/with_hogan');
+
   // var router = require('bower_components/flight-router/lib/with_route');
 
   /**
