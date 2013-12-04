@@ -3,7 +3,7 @@
 requirejs.config({
   baseUrl: '',
   paths: {
-    'hogan': 'bower_components/hogan/build/hogan',
+    
     // Flight
     'flight': 'bower_components/flight',
     'flight-hogan': 'bower_components/flight-hogan',
@@ -16,6 +16,8 @@ requirejs.config({
     'page': 'js/page',
 
     // Hogan Templating Support
+    'hogan': 'bower_components/hogan/build/hogan',
+    'templates': 'js/templates',
     // 'text': 'bower_components/text/text',
     // 'hgn': 'bower_components/requirejs-hogan-plugin/hgn',
     // 'hogan': 'bower_components/requirejs-hogan-plugin/hogan'
@@ -27,15 +29,12 @@ require(
     'flight/lib/compose',
     'flight/lib/registry',
     'flight/lib/advice',
-    'flight/lib/logger',
-    'hogan'
+    'flight/lib/logger'
   ],
 
   function(compose, registry, advice, withLogging, Hogan) {
     // debug.enable(true);
     compose.mixin(registry, [advice.withAdvice, withLogging]);
-    
-    console.log(Hogan)
 
     require(['page/index'], function(initializeIndex) {
       initializeIndex();

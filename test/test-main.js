@@ -4,6 +4,16 @@ var tests = Object.keys(window.__karma__.files).filter(function (file) {
   return (/\.spec\.js$/.test(file));
 });
 
+// var tests = Object.keys(window.__karma__.files).filter(function (file) {
+//     return /Spec\.js$/.test(file);
+// }).map(function(file) {
+//     // create relative path from `baseUrl` for specs, without `.js`
+//     // i.e., instead of requiring `/base/test/appSpec.js`
+//     // we want to require `../test/appSpec` when the
+//     // baseUrl is `/base/src`
+//     return '../' + file.replace(/^\/base\//, '').replace(/\.js$/, '');
+// });
+
 requirejs.config({
   // Karma serves files from '/base'
   baseUrl: '/base',
@@ -19,6 +29,8 @@ requirejs.config({
     'page': 'app/js/page',
 
     // Hogan Templating Support
+    'hogan': 'app/bower_components/hogan/build/hogan',
+    'templates': 'app/js/templates'
     // 'text': 'app/bower_components/text',
     // 'hgn': 'app/bower_components/requirejs-hogan-plugin',
     // 'hogan': 'app/bower_components/requirejs-hogan-plugin'

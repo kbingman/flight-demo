@@ -7,8 +7,7 @@ define(function (require) {
   */
 
   var defineComponent = require('flight/lib/component');
-  var hogan = require('hogan');
-  var withHogan = require('flight-hogan/lib/with_hogan');
+  var withHogan = require('mixin/with_hogan');
 
   // var router = require('bower_components/flight-router/lib/with_route');
 
@@ -26,16 +25,20 @@ define(function (require) {
     this.defaultAttrs({
 
     });
-
-    this.after('initialize', function () {
-      var helloWorld = this.renderTemplate({
-        template: 'Hello, {{name}}!',
+    
+    this.render = function(request) {
+      var markup = this.renderTemplate({
+        template: 'article.mustache',
         renderParams: {
           name: 'World'
         }
       });
 
-      this.$node.html(helloWorld);
+      this.$node.html(markup);
+    }
+
+    this.after('initialize', function () {
+      this.render();
     });
   }
 

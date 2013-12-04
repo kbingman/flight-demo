@@ -10,9 +10,9 @@ describeComponent('component/article_ui', function () {
   it('should be defined', function () {
     expect(this.component).toBeDefined();
   });
-
+  
   it('should do something', function () {
-    expect(this.component.$node.html()).toBe('markup');
+    expect(this.component.$node.html()).toContain('Title: World');
   });
 
 });

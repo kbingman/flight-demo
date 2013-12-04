@@ -11,8 +11,4 @@ describeMixin('mixin/with_ajax', function () {
     expect(this.component).toBeDefined();
   });
 
-  it('should do something', function () {
-    expect(true).toBe(true);
-  });
-
 });

@@ -1,6 +1,6 @@
 'use strict';
 
-describeMixin('component/with_hogan', function () {
+describeMixin('mixin/with_hogan', function () {
 
   // Initialize the component and attach it to the DOM
   beforeEach(function () {
@@ -9,10 +9,6 @@ describeMixin('component/with_hogan', function () {
 
   it('should be defined', function () {
     expect(this.component).toBeDefined();
-  });
-
-  it('should do something', function () {
-    expect(true).toBe(false);
   });
 
 });

@@ -144,10 +144,13 @@ module.exports = function (grunt) {
               defaultName: function(file) {
                 return file.toLowerCase().replace('app/templates/','');
               },
-              amdWrapper: true
+              amdWrapper: true,
+              amdRequire: {
+                hogan: 'Hogan'
+              }
             },
             files:{
-              "app/js/templates.js": ["app/templates/**/*.mustache"]
+              'app/js/templates.js': ['app/templates/**/*.mustache']
             }
           }
         },

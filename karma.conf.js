@@ -29,6 +29,7 @@ module.exports = function (config) {
 
       // loaded with require
       {pattern: 'app/bower_components/flight/**/*.js', included: false},
+      {pattern: 'app/bower_components/hogan/**/*.js', included: false},
       {pattern: 'app/js/**/*.js', included: false},
       {pattern: 'test/spec/**/*.spec.js', included: false},
 
