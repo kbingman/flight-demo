@@ -28,8 +28,8 @@ module.exports = function (config) {
       'node_modules/karma-requirejs/lib/adapter.js',
 
       // loaded with require
-      {pattern: 'app/bower_components/flight/**/*.js', included: false},
-      {pattern: 'app/bower_components/hogan/**/*.js', included: false},
+      // {pattern: 'app/bower_components/flight/**/*.js', included: false},
+      {pattern: 'app/bower_components/**/*.js', included: false},
       {pattern: 'app/js/**/*.js', included: false},
       {pattern: 'test/spec/**/*.spec.js', included: false},
 

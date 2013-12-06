@@ -28,7 +28,7 @@ define(function (require) {
 
       var xhr = $.extend(options.xhr, {
         context: this,
-        url: settings.api + options.xhr.url,
+        url: options.xhr.url, //settings.api + 
         dataType: 'json'
       });
       

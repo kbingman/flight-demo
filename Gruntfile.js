@@ -28,6 +28,10 @@ module.exports = function (grunt) {
                 files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
                 tasks: ['copy:styles', 'autoprefixer']
             },
+            hogan: {
+              files: ['<%= yeoman.app %>/templates/{,*/}*.mustache'],
+              tasks: ['hogan']
+            },
             livereload: {
                 options: {
                     livereload: '<%= connect.options.livereload %>'

@@ -24,22 +24,21 @@ define(function (require) {
       baseUrl: 'http://localhost:5000'
     });
     
-    this.get = function(e, data) {
-      
+    this.get = function() {
       this.ajax({
         xhr: {
-          url: 'http://localhost:5000' + '/api/pages/' + data.id,
+          url: 'http://localhost:5000' + '/api/pages',
           type: 'GET'
         },
         events: {
-          done: 'uiRenderPage',
+          done: 'uiRenderPageIndex',
           fail: 'ajaxError'
         }
       });
     }
 
     this.after('initialize', function () {
-      this.on(document, 'dataLoadSinglePage', this.get);
+      this.on(document, 'dataLoadPages', this.get);
     });
   }
 

@@ -5,8 +5,11 @@ define(function (require) {
   /**
    * Module dependencies
    */
-
-  var articleComponent = require('component/article_ui');
+  var router = require('data/router');
+  var articleUI = require('component/article_ui');
+  var articleIndexUI = require('component/article_index_ui');
+  var newArticleComponent = require('component/new_article_ui');
+  var articleIndexData = require('data/article_index_data');
   var articleData = require('data/article_data');
 
   /**
@@ -21,7 +24,12 @@ define(function (require) {
 
   function initialize() {
     articleData.attachTo(document);
-    articleComponent.attachTo('[data-container="article"]');
+    articleIndexData.attachTo(document);
+    newArticleComponent.attachTo(document);
+    articleIndexUI.attachTo('[data-container="article"]');
+    articleUI.attachTo('[data-container="article"]');
+    
+    router.attachTo(document);
   }
 
 });

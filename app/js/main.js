@@ -6,7 +6,6 @@ requirejs.config({
     
     // Flight
     'flight': 'bower_components/flight',
-    'flight-hogan': 'bower_components/flight-hogan',
     'flight-router': 'bower_components/flight-router',
 
     // Application Components
