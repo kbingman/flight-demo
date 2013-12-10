@@ -23,8 +23,9 @@ define(function (require) {
     this.defaultAttrs({
       baseUrl: 'http://localhost:5000'
     });
-    
+
     this.get = function() {
+      console.log('data')
       this.ajax({
         xhr: {
           url: 'http://localhost:5000' + '/api/pages',

@@ -1,5 +1,5 @@
 define(function(defineComponent, router) {
-  
+
   var defineComponent = require('flight/lib/component');
   var withRouter = require('flight-router/lib/with_route');
 
@@ -9,11 +9,11 @@ define(function(defineComponent, router) {
 
     // Triggers the first URL of our single page app on load
     this.initialRoute = function(path) {
-      this.navigate(document.location.pathname, { 
-        forced: true 
+      this.navigate(document.location.pathname, {
+        forced: true
       });
     }
-    
+
     this.listenToURL = function(e, data) {
       console.log(data.path)
       this.navigate(data.path)
@@ -24,8 +24,8 @@ define(function(defineComponent, router) {
     };
 
     this.showArticle = function(data) {
-      this.trigger('dataLoadSinglePage', { 
-        id: data.id 
+      this.trigger('dataLoadSinglePage', {
+        id: data.id
       });
     };
 
