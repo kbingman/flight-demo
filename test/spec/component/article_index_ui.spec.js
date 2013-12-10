@@ -1,6 +1,6 @@
 'use strict';
 
-describeComponent('component/article_ui', function () {
+describeComponent('component/article_index_ui', function () {
 
   // Initialize the component and attach it to the DOM
   beforeEach(function () {
@@ -8,13 +8,18 @@ describeComponent('component/article_ui', function () {
     setupComponent(html);
     // prepareComponent(html);
   });
+  
+  it('should be defined', function () {
+    expect(this.component).toBeDefined();
+  });
 
   describe('Listens to dataLoadPages', function () {
     
     it('should trigger dataItems with current item and the new one', function () {
       var eventSpy = spyOnEvent(document, 'dataLoadPages');
-      this.component.trigger('dataLoadPages');
-
+      this.component.click();
+    
+    
       expect(eventSpy).toHaveBeenTriggeredOn(document);
     });
     

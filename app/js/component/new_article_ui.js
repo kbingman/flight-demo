@@ -13,7 +13,9 @@ define(function (require) {
 
     this.click = function(e, data) {
       e.preventDefault();
-      alert('new');
+      this.trigger('dataCreatePage', {
+        title: 'untitled'
+      })
     }
 
     this.after('initialize', function () {

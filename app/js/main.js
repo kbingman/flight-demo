@@ -28,11 +28,13 @@ require(
     'flight/lib/compose',
     'flight/lib/registry',
     'flight/lib/advice',
-    'flight/lib/logger'
+    'flight/lib/logger',
+    'flight-router/lib/with_route'
   ],
 
-  function(compose, registry, advice, withLogging, Hogan) {
+  function(compose, registry, advice, withLogging, withRouter) {
     // debug.enable(true);
+    // console.log(withRouter)
     compose.mixin(registry, [advice.withAdvice, withLogging]);
 
     require(['page/index'], function(initializeIndex) {

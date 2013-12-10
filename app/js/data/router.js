@@ -1,7 +1,7 @@
 define(function(defineComponent, router) {
   
   var defineComponent = require('flight/lib/component');
-  var withRouter = require('bower_components/flight-router/lib/with_route');
+  var withRouter = require('flight-router/lib/with_route');
 
   return defineComponent(router, withRouter);
 
@@ -12,6 +12,11 @@ define(function(defineComponent, router) {
       this.navigate(document.location.pathname, { 
         forced: true 
       });
+    }
+    
+    this.listenToURL = function(e, data) {
+      console.log(data.path)
+      this.navigate(data.path)
     }
 
     this.index = function() {
@@ -30,6 +35,7 @@ define(function(defineComponent, router) {
           '/articles/:id/': 'showArticle'
       });
       this.initialRoute();
+      this.on('navigateToURL', this.listenToURL)
     });
 
   }

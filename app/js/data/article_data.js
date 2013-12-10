@@ -23,9 +23,8 @@ define(function (require) {
     this.defaultAttrs({
       baseUrl: 'http://localhost:5000'
     });
-    
-    this.get = function(e, data) {
-      
+
+    this.fetch = function(e, data) {
       this.ajax({
         xhr: {
           url: 'http://localhost:5000' + '/api/pages/' + data.id,
@@ -38,8 +37,23 @@ define(function (require) {
       });
     }
 
+    this.create = function(e, data) {
+      this.ajax({
+        xhr: {
+          url: 'http://localhost:5000' + '/api/pages',
+          type: 'POST',
+          data: { page: data }
+        },
+        events: {
+          done: 'uiRenderPage',
+          fail: 'ajaxError'
+        }
+      });
+    }
+
     this.after('initialize', function () {
-      this.on(document, 'dataLoadSinglePage', this.get);
+      this.on(document, 'dataLoadSinglePage', this.fetch);
+      this.on(document, 'dataCreatePage', this.create);
     });
   }
 

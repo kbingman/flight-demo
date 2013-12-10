@@ -32,10 +32,10 @@ define(function (require) {
         dataType: 'json'
       });
       
-      var req = $.ajax(xhr);
+      var request = $.ajax(xhr);
       
       for (var e in events) {
-        req[e]($.proxy(function() {
+        request[e]($.proxy(function() {
           var args = [].slice.call(arguments);
           var event = args.shift();
 
@@ -47,7 +47,7 @@ define(function (require) {
         }, this, events[e]));
       }
 
-      return req;
+      return request;
     };
 
     // this.after('initialize', function () {
