@@ -3,7 +3,7 @@
 requirejs.config({
   baseUrl: '',
   paths: {
-    
+
     // Flight
     'flight': 'bower_components/flight',
     'flight-router': 'bower_components/flight-router',
@@ -15,7 +15,7 @@ requirejs.config({
     'page': 'js/page',
 
     // Hogan Templating Support
-    'hogan': 'bower_components/hogan/build/hogan',
+    'hogan': 'bower_components/hogan/web/builds/2.0.0/hogan-2.0.0.amd',
     'templates': 'js/templates',
     // 'text': 'bower_components/text/text',
     // 'hgn': 'bower_components/requirejs-hogan-plugin/hgn',

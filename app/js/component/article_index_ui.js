@@ -21,6 +21,7 @@ define(function (require) {
     }
 
     this.render = function(e, data) {
+      console.log('hey')
 
       var markup = this.renderTemplate({
         template: 'index.mustache',
