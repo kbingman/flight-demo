@@ -13,9 +13,9 @@ define(function(defineComponent, router) {
         forced: true 
       });
     }
-    
+
     this.listenToURL = function(e, data) {
-      console.log(data.path)
+      // console.log(data.path)
       this.navigate(data.path)
     }
 

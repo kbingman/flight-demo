@@ -9,12 +9,13 @@ define(function (require) {
 
   function articleIndexUI() {
     this.defaultAttrs({
-      menuItemSelector: 'li h1',
+      menuItemSelector: '.articleLink',
     });
 
     this.click = function(e, data) {
       e.preventDefault();
       var path = $(e.target).attr('href');
+      console.log(path)
 
       this.trigger('navigateToURL', { path: path });
     }

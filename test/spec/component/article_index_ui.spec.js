@@ -4,34 +4,19 @@ describeComponent('component/article_index_ui', function () {
 
   // Initialize the component and attach it to the DOM
   beforeEach(function () {
-    var html = '<ul><li><h1>click</h1></ul></li>';
+    var html = '<ul><li><h1><a href="test" class="articleLink">click</a></h1></ul></li>';
     setupComponent(html);
-    // prepareComponent(html);
-  });
-  
-  it('should be defined', function () {
-    expect(this.component).toBeDefined();
   });
 
-  describe('Listens to dataLoadPages', function () {
-    
-    it('should trigger dataItems with current item and the new one', function () {
-      var eventSpy = spyOnEvent(document, 'dataLoadPages');
-      this.component.click();
-    
-    
-      expect(eventSpy).toHaveBeenTriggeredOn(document);
+    describe("when the headline is clicked", function() {
+
+      it("triggers 'navigateToURL' event", function() {
+        var eventSpy = spyOnEvent(document, 'navigateToURL');
+        this.component.$node.find('a').click();
+
+        expect(eventSpy).toHaveBeenTriggeredOn(document);
+      });
+
     });
-    
-    // describe("when the headline is clicked", function() {
-    //   it("triggers 'uiShowArticle' event", function() {
-    //     spyOnEvent(document, 'uiShowArticle');
-    //     this.component.click();
-    //     expect('uiButtonClicked').toHaveBeenTriggeredOn(document);
-    //   });
-    // });
-
-  });
-
 
 });

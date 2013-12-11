@@ -10,23 +10,23 @@ describeComponent('component/article_ui', function () {
   });
 
   describe('Listens to dataLoadPages', function () {
-    
+
     it('should trigger dataItems with current item and the new one', function () {
       var eventSpy = spyOnEvent(document, 'dataLoadPages');
       this.component.trigger('dataLoadPages');
 
       expect(eventSpy).toHaveBeenTriggeredOn(document);
     });
-    
-    // describe("when the headline is clicked", function() {
-    //   it("triggers 'uiShowArticle' event", function() {
-    //     spyOnEvent(document, 'uiShowArticle');
-    //     this.component.click();
-    //     expect('uiButtonClicked').toHaveBeenTriggeredOn(document);
-    //   });
-    // });
 
   });
+
+  // describe("when the headline is clicked", function() {
+  //   it("triggers 'uiShowArticle' event", function() {
+  //     spyOnEvent(document, 'uiShowArticle');
+  //     this.component.click();
+  //     expect('uiButtonClicked').toHaveBeenTriggeredOn(document);
+  //   });
+  // });
 
 
 });
