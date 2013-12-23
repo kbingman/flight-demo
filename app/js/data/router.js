@@ -29,10 +29,15 @@ define(function(defineComponent, router) {
       });
     };
 
+    this.showImages = function(data) {
+      this.trigger('dataLoadImages');
+    };
+
     this.after('initialize', function() {
       this.defineRoute({
           '/': 'index',
-          '/articles/:id/': 'showArticle'
+          '/articles/:id/': 'showArticle',
+          '/images': 'showImages'
       });
       this.initialRoute();
       this.on('navigateToURL', this.listenToURL)

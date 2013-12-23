@@ -24,23 +24,22 @@ define(function (require) {
       baseUrl: 'http://localhost:5000'
     });
 
-    this.get = function(e) {
-      console.log('data')
-      console.log(e)
+    this.get = function() {
+      console.log('image data')
       this.ajax({
         xhr: {
-          url: '/api/pages',
+          url: 'http://localhost:5000' + '/api/images',
           type: 'GET'
         },
         events: {
-          done: 'uiRenderPageIndex',
+          done: 'uiRenderImageIndex',
           fail: 'ajaxError'
         }
       });
     }
 
     this.after('initialize', function () {
-      this.on(document, 'dataLoadPages', this.get);
+      this.on(document, 'dataLoadImages', this.get);
     });
   }
 

@@ -9,6 +9,7 @@ define(function (require) {
   function newArticleUI() {
     this.defaultAttrs({
       newItemSelector: 'a.new',
+      navItem: 'a.nav'
     });
 
     this.click = function(e, data) {
@@ -18,9 +19,17 @@ define(function (require) {
       })
     }
 
+    this.navigate = function(e, data) {
+      e.preventDefault();
+      var path = $(e.target).attr('href');
+
+      this.trigger('navigateToURL', { path: path });
+    }
+
     this.after('initialize', function () {
       this.on('click', {
-        newItemSelector: this.click
+        newItemSelector: this.click,
+        navItem: this.navigate
       });
     });
   }

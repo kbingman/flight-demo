@@ -12,19 +12,17 @@ define(function (require) {
       menuItemSelector: '.articleLink',
     });
 
-    this.click = function(e, data) {
+    this.navigate = function(e, data) {
       e.preventDefault();
       var path = $(e.target).attr('href');
-      console.log(path)
 
       this.trigger('navigateToURL', { path: path });
     }
 
     this.render = function(e, data) {
-      console.log('hey')
-
+        console.log('render')
       var markup = this.renderTemplate({
-        template: 'index.mustache',
+        template: 'articles/index.mustache',
         renderParams: {
           articles: data
         }
@@ -36,7 +34,7 @@ define(function (require) {
     this.after('initialize', function () {
       this.on(document, 'uiRenderPageIndex', this.render);
       this.on('click', {
-        menuItemSelector: this.click
+        menuItemSelector: this.navigate
       });
     });
   }

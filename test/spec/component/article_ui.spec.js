@@ -17,6 +17,13 @@ describeComponent('component/article_ui', function () {
 
       expect(eventSpy).toHaveBeenTriggeredOn(document);
     });
+    
+    it('should trigger the "dataUpdatePage" event on keyup', function() {
+        var eventSpy = spyOnEvent(document, 'dataUpdatePage');
+        this.component.$node.find('h1').click();
+
+        expect(eventSpy).toHaveBeenTriggeredOn(document);
+    });
 
   });
 

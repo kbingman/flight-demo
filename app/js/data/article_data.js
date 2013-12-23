@@ -50,10 +50,29 @@ define(function (require) {
         }
       });
     }
+    
+    this.update = function(e, data) {
+        console.log(data)
+      this.ajax({
+        xhr: {
+          url: 'http://localhost:5000' + '/api/pages/' + data._id,
+          type: 'POST',
+          data: { 
+              'page': data, 
+              '_method': 'PUT'
+          }
+        },
+        events: {
+          done: 'uiRenderPageUpate',
+          fail: 'ajaxError'
+        }
+      });
+    }
 
     this.after('initialize', function () {
       this.on(document, 'dataLoadSinglePage', this.fetch);
       this.on(document, 'dataCreatePage', this.create);
+      this.on(document, 'dataUpdatePage', this.update);
     });
   }
 

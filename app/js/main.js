@@ -1,7 +1,7 @@
 'use strict';
 
 requirejs.config({
-  baseUrl: '',
+  baseUrl: 'http://localhost:9000/',
   paths: {
 
     // Flight
