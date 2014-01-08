@@ -46,6 +46,8 @@ define(function (require) {
         this.$node.html(markup);
     }
 
+    // These should be another mixin, just for handling the 
+    // Image UI stuff
     this.uploadImage = function(e){
         this.triggerUpload({
             'image[caption]': 'my snappy title'
@@ -53,18 +55,18 @@ define(function (require) {
     }
 
     this.addImage = function(e, data){
-        if (FileReader){
-            var reader = new FileReader();
-            var image = this.image = new Image();
+        if (!FileReader){
+            return
+        }
 
-            image.width = 100; 
-            this.$node.append(image);
+        var reader = new FileReader();
+        var image = this.image = new Image();
 
-            reader.readAsDataURL(data.file);
-            reader.onload = function(e){
-                image.src = e.target.result;
-                var ratio = image.width / image.height;
-            }
+        this.$node.append(image);
+
+        reader.readAsDataURL(data.file);
+        reader.onload = function(e){
+            image.src = e.target.result;
         }
     }
 
@@ -90,9 +92,10 @@ define(function (require) {
         this.on(document, 'uploadFile', this.addImage);
         this.on(document, 'fileUploadProgress',  this.showProgress);
         this.on(document, 'fileUploadDone',  this.showUpload);
-        this.on(document, 'fileUploadstart', function(e, data){
-            console.log('fileUploadstart')
-        });
+
+        // this.on(document, 'fileUploadstart', function(e, data){
+        //     console.log('fileUploadstart')
+        // });
         // this.on(document, 'fileUploadDone', this.addImage);
         this.on('keyup', {
             titleEl: this.watch

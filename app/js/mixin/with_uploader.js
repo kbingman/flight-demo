@@ -39,7 +39,7 @@ define(function (require) {
             var component = this;
             var xhr = new XMLHttpRequest();
             var formData = new FormData();
-            
+
             for (var prop in this.attr.uploadFormData) {
                 formData.append(prop, this.attr.uploadFormData[prop]);
             }
