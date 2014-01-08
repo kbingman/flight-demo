@@ -35,7 +35,7 @@ define(function (require) {
     }
 
     this.update = function(e, data) {
-        console.log(data);
+        // console.log(data);
     }
 
     this.render = function(e, data) {
@@ -43,24 +43,62 @@ define(function (require) {
             template: 'articles/show.mustache',
             renderParams: data
         });
-
         this.$node.html(markup);
     }
 
-    this.clicker = function(e){
+    this.uploadImage = function(e){
         this.triggerUpload({
             'image[caption]': 'my snappy title'
-        })
+        });
+    }
+
+    this.addImage = function(e, data){
+        if (FileReader){
+            var reader = new FileReader();
+            var image = this.image = new Image();
+
+            image.width = 100; 
+            this.$node.append(image);
+
+            reader.readAsDataURL(data.file);
+            reader.onload = function(e){
+                image.src = e.target.result;
+                var ratio = image.width / image.height;
+            }
+        }
+    }
+
+    this.showProgress = function(e, data) {
+        console.log(data)
+    }
+
+    this.showUpload = function(e, data) {
+        var image = this.image;
+        var imageData = JSON.parse(data.response);
+        var temp = new Image();
+        temp.src = imageData.path;
+
+        temp.onload = function() {
+            image.src = imageData.path;
+        }
     }
 
     this.after('initialize', function () {
         this.on(document, 'uiRenderPage', this.render);
         this.on(document, 'uiRenderPageUpate', this.update);
+
+        this.on(document, 'uploadFile', this.addImage);
+        this.on(document, 'fileUploadProgress',  this.showProgress);
+        this.on(document, 'fileUploadDone',  this.showUpload);
+        this.on(document, 'fileUploadstart', function(e, data){
+            console.log('fileUploadstart')
+        });
+        // this.on(document, 'fileUploadDone', this.addImage);
         this.on('keyup', {
             titleEl: this.watch
         });
         this.on('click', {
-            imageUploader: this.clicker
+            imageUploader: this.uploadImage
         });
     });
   }

@@ -6,10 +6,8 @@ define(function (require) {
     
     function withUploader() {
 
-        var self = this;
-
         // Creates a file input, but does not attach it to the document
-        // this lets us trigger it later when needed
+        // this lets us trigger it later when needed to open the upload dialog
         this.setup = function () {
             var self = this;
             var name = 'uploader_' + this.identity;
@@ -29,7 +27,7 @@ define(function (require) {
 
         // Triggers the file dialog
         this.triggerUpload = function(data) {
-            this.attr.fileUploadData = data;
+            this.attr.uploadFormData = data;
             this.attr.fileInput.trigger('click');
         }
 
@@ -40,12 +38,12 @@ define(function (require) {
 
             var component = this;
             var xhr = new XMLHttpRequest();
-            var formData = new FormData(this.attr.fileUploadData);
+            var formData = new FormData();
             
-            console.log(data)
-
+            for (var prop in this.attr.uploadFormData) {
+                formData.append(prop, this.attr.uploadFormData[prop]);
+            }
             formData.append('image[file]', data.file);
-            formData.append('image[caption]', 'Caption');
 
             // Set up events
             xhr.upload.addEventListener('loadstart', onLoadstartHandler, false);
@@ -59,12 +57,10 @@ define(function (require) {
 
             // Callbacks. These need to be here to get proper access to the component
             function onLoadstartHandler(e) {
-                console.log('on start');
                 component.trigger('fileUploadstart');
             }
 
             function onLoadHandler(e) {
-                console.log('on load');
                 component.trigger('fileUpload');
             }
 
@@ -74,7 +70,6 @@ define(function (require) {
                 component.trigger('fileUploadProgress', { 
                     percent: percent 
                 });
-                console.log('on progress', percent);
             }
 
             function onReadystatechangeHandler(e) {
@@ -87,11 +82,17 @@ define(function (require) {
                   return;
                 }
 
-                if (status == '200' && xhr.readyState == 4) {
-                    component.trigger('fileUploadDone', {
-                        file: e.target.responseText
-                    });
-                    console.log('on finish', e.target.responseText);
+                if (xhr.readyState == 4) {
+                    if (status == '200'){
+                        component.trigger('fileUploadDone', {
+                            response: e.target.responseText
+                        });
+                    } else {
+                        component.trigger('fileUploadError', {
+                            response: e.target.responseText,
+                            error: status
+                        });
+                    }
                 }
             }
         }
