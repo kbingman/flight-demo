@@ -11,7 +11,7 @@ requirejs.config({
   paths: {
     'flight': 'app/bower_components/flight',
     'flight-router': 'app/bower_components/flight-router',
-    
+
     // Application Components
     'component': 'app/js/component',
     'data': 'app/js/data',
@@ -21,13 +21,10 @@ requirejs.config({
     // Hogan Templating Support
     'hogan': 'app/bower_components/hogan/build/hogan',
     'templates': 'app/js/templates'
-    // 'text': 'app/bower_components/text',
-    // 'hgn': 'app/bower_components/requirejs-hogan-plugin',
-    // 'hogan': 'app/bower_components/requirejs-hogan-plugin'
   },
 
   // ask Require.js to load these files (all our tests)
-  deps: tests,  
+  deps: tests,
 
   // start test run, once Require.js is done
   callback: window.__karma__.start

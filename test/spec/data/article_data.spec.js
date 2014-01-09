@@ -2,12 +2,12 @@
 
 describeComponent('data/article_data', function () {
 
-  beforeEach(function () {
-    setupComponent();
-  });
+    beforeEach(function () {
+        setupComponent();
+    });
 
-  it('should be defined', function () {
-    expect(this.component).toBeDefined();
-  });
+    it('should be defined', function () {
+        expect(this.component).toBeDefined();
+    });
 
 });

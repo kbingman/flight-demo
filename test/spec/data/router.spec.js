@@ -16,7 +16,7 @@ describeComponent('data/router', function () {
 
       expect(eventSpy).toHaveBeenTriggeredOn(document);
     });
-    
+
     it('should trigger dataLoadSinglePage when navigating to an article', function () {
       var eventSpy = spyOnEvent(document, 'dataLoadSinglePage');
       this.component.trigger('navigateToURL', {
