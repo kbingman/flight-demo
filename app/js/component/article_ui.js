@@ -17,21 +17,17 @@ define(function (require) {
 
         this.watch = function(e, data) {
             var self = this;
-            if (this.timer) {
-                clearTimeout(this.timer);
-            }
-            this.timer = setTimeout(function(){
-                var $target = $(e.target)
-                var attr = $target.data('attr');
-                var value = $target.text();
-                var id = $target.data('id');
-                var data = {
-                    '_id': id
-                };
-                data[attr] = value;
 
-                self.trigger('dataUpdatePage', data);
-            }, 300);
+            var $target = $(e.target)
+            var attr = $target.data('attr');
+            var value = $target.text().trim();
+            var id = $target.data('id');
+            var data = {
+                '_id': id
+            };
+            data[attr] = value;
+
+            self.trigger(document, 'dataUpdatePage', data);
         };
 
         this.update = function(e, data) {

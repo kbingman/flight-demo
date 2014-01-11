@@ -3,14 +3,22 @@ define(function (require) {
   'use strict';
 
   var defineComponent = require('flight/lib/component');
+  var withHogan = require('mixin/with_hogan');
 
-  return defineComponent(newArticleUI);
+  return defineComponent(articleMenuUI, withHogan);
 
-  function newArticleUI() {
+  function articleMenuUI() {
     this.defaultAttrs({
       newItemSelector: 'a.new',
       navItem: 'a.nav'
     });
+
+    this.render = function(e, data) {
+      var markup = this.renderTemplate({
+        template: 'articles/menu.mustache'
+      });
+      this.$node.html(markup);
+    }
 
     this.click = function(e, data) {
       e.preventDefault();
@@ -27,6 +35,7 @@ define(function (require) {
     }
 
     this.after('initialize', function () {
+      this.render();
       this.on('click', {
         newItemSelector: this.click,
         navItem: this.navigate

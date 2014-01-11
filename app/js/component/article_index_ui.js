@@ -20,14 +20,12 @@ define(function (require) {
     }
 
     this.render = function(e, data) {
-        console.log('render')
       var markup = this.renderTemplate({
         template: 'articles/index.mustache',
         renderParams: {
           articles: data
         }
       });
-
       this.$node.html(markup);
     }
 

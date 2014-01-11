@@ -12,7 +12,7 @@ module.exports = function (config) {
     basePath: '',
 
     // frameworks to use
-    frameworks: ['jasmine', 'effroi'],
+    frameworks: ['jasmine', 'sinon'],
 
     // list of files / patterns to load in the browser
     files: [
@@ -22,6 +22,7 @@ module.exports = function (config) {
       'app/bower_components/jquery/jquery.js',
       'app/bower_components/jasmine-jquery/lib/jasmine-jquery.js',
       'app/bower_components/jasmine-flight/lib/jasmine-flight.js',
+      'app/bower_components/jasmine-ajax/lib/mock-ajax.js',
 
       // hack to load RequireJS after the shim libs
       'node_modules/karma-requirejs/lib/require.js',
@@ -29,9 +30,10 @@ module.exports = function (config) {
 
       // loaded with require
       // {pattern: 'app/bower_components/flight/**/*.js', included: false},
-      {pattern: 'app/bower_components/**/*.js', included: false},
-      {pattern: 'app/js/**/*.js', included: false},
-      {pattern: 'test/spec/**/*.spec.js', included: false},
+      { pattern: 'app/bower_components/**/*.js', included: false },
+      { pattern: 'app/js/**/*.js', included: false },
+      { pattern: 'test/fixtures/**/*.js', included: false },
+      { pattern: 'test/spec/**/*.spec.js', included: false },
 
       'test/test-main.js'
     ],

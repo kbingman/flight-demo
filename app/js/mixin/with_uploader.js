@@ -1,13 +1,16 @@
 define(function (require) {
 
     'use strict';
-    
+
     return withUploader
-    
+
     function withUploader() {
 
         // Creates a file input, but does not attach it to the document
-        // this lets us trigger it later when needed to open the upload dialog
+        // this lets us trigger it later when needed to open the upload
+        // dialog. Any element can be used to trigger and thus we are
+        // not limited to ugly and unstylable file inputs.
+
         this.setup = function () {
             var self = this;
             var name = 'uploader_' + this.identity;
@@ -17,8 +20,8 @@ define(function (require) {
             this.attr.fileInput.on('change', function(){
                 var files = this.files;
                 Array.prototype.forEach.call(files, function(file){
-                     self.trigger('uploadFile', { 
-                         file: file 
+                     self.trigger('uploadFile', {
+                         file: file
                      });
                 });
                 // console.log(self.attr);
@@ -57,7 +60,9 @@ define(function (require) {
 
             // Callbacks. These need to be here to get proper access to the component
             function onLoadstartHandler(e) {
-                component.trigger('fileUploadstart');
+                component.trigger('fileUploadstart', {
+                    file: data.file
+                });
             }
 
             function onLoadHandler(e) {
@@ -67,8 +72,8 @@ define(function (require) {
             function onProgressHandler(e) {
                 var percent = e.loaded / e.total * 100;
 
-                component.trigger('fileUploadProgress', { 
-                    percent: percent 
+                component.trigger('fileUploadProgress', {
+                    percent: percent
                 });
             }
 
@@ -101,7 +106,7 @@ define(function (require) {
           this.setup();
           this.on('uploadFile', this.upload);
         });
-    
+
     }
 
 });

@@ -20,13 +20,8 @@ define(function (require) {
    */
 
   function articleData() {
-    this.defaultAttrs({
-      baseUrl: 'http://localhost:5000'
-    });
 
     this.get = function(e) {
-      console.log('data')
-      console.log(e)
       this.ajax({
         xhr: {
           url: '/api/pages',

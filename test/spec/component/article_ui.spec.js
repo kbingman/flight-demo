@@ -1,53 +1,66 @@
 'use strict';
-define(function (require) {
+
+define(function(require) {
 
   var Templates = require('templates');
+  var fixtures = require('fixtures/articles');
+  var article = fixtures.article;
 
   describeComponent('component/article_ui', function () {
 
-    // Initialize the component and attach it to the DOM
-    beforeEach(function () {
-      var template = Templates['articles/show.mustache'];
-      var article = {
-        '_id':'52a390c4ac727a0cfa000001',
-        'title':'Title',
-        'slug':'title',
-        'created_at':'2013-12-07T13:19:00-08:00',
-        'updated_at':'2013-12-07T13:19:00-08:00',
-        'content':'text'
-      }
-      var html = template.render({
-        article: article
+    describe('rendering', function() {
+
+      beforeEach(function () {
+        setupComponent();
+
+        $(document).trigger('uiRenderPage', article);
       });
 
-      setupComponent(html);
+      it('should render the article title', function() {
+        var title = this.component.$node.find('[data-attr="title"]');
+
+        expect(title.text().trim()).toEqual('The Title');
+      });
+
+      it('should render the article slug', function() {
+        var slug = this.component.$node.find('[data-attr="slug"]');
+
+        expect(slug.text().trim()).toEqual('title');
+      });
+
+      // it('should render the article slug', function() {
+      //   var content = this.component.$node.find('p').text().trim();
+
+      //   expect(content).toEqual('content');
+      // });
+
     });
 
-    describe('Listens to dataLoadPages', function () {
+    describe('Events', function () {
 
-      it('should trigger dataItems with current and new item', function () {
-        var eventSpy = spyOnEvent(document, 'dataLoadPages');
-        this.component.trigger('dataLoadPages');
+      beforeEach(function () {
+        var template = Templates['articles/show.mustache'];
+        var html = template.render(article);
 
-        expect(eventSpy).toHaveBeenTriggeredOn(document);
+        setupComponent();
+        // Why does this component need this?
+        this.component.$node.html(html);
       });
 
       it('should trigger the "dataUpdatePage" event on keyup', function() {
-          var eventSpy = spyOnEvent(document, 'dataUpdatePage');
-          this.component.$node.find('h1').click();
-          expect(eventSpy).toHaveBeenTriggeredOn(document);
+        var eventSpy = spyOnEvent(document, 'dataUpdatePage');
+        var titleEl = this.component.$node.find('[data-attr="title"]');
+        // Changes the title
+        titleEl.text('New Title');
+        titleEl.trigger('keyup');
+
+        expect(eventSpy).toHaveBeenTriggeredOnAndWith(document, {
+          _id: '52a390c4ac727a0cfa000001',
+          title: 'New Title'
+        });
       });
 
     });
-
-    // describe("when the headline is clicked", function() {
-    //   it("triggers 'uiShowArticle' event", function() {
-    //     spyOnEvent(document, 'uiShowArticle');
-    //     this.component.click();
-    //     expect('uiButtonClicked').toHaveBeenTriggeredOn(document);
-    //   });
-    // });
-
 
   });
 

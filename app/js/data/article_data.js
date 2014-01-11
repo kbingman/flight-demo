@@ -20,14 +20,17 @@ define(function (require) {
    */
 
   function articleData() {
-    this.defaultAttrs({
-      baseUrl: 'http://localhost:5000'
-    });
 
     this.fetch = function(e, data) {
+      // if (this.timer) {
+      //     clearTimeout(this.timer);
+      // }
+
+      // this.timer = setTimeout(function(){
+      // }, 0);
       this.ajax({
         xhr: {
-          url: 'http://localhost:5000' + '/api/pages/' + data.id,
+          url: '/api/pages/' + data.id,
           type: 'GET'
         },
         events: {
@@ -40,7 +43,7 @@ define(function (require) {
     this.create = function(e, data) {
       this.ajax({
         xhr: {
-          url: 'http://localhost:5000' + '/api/pages',
+          url: '/api/pages',
           type: 'POST',
           data: { page: data }
         },
@@ -50,15 +53,15 @@ define(function (require) {
         }
       });
     }
-    
+
     this.update = function(e, data) {
-        console.log(data)
+      // console.log(data)
       this.ajax({
         xhr: {
-          url: 'http://localhost:5000' + '/api/pages/' + data._id,
+          url: '/api/pages/' + data._id,
           type: 'POST',
-          data: { 
-              'page': data, 
+          data: {
+              'page': data,
               '_method': 'PUT'
           }
         },

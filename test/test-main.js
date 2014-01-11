@@ -20,7 +20,10 @@ requirejs.config({
 
     // Hogan Templating Support
     'hogan': 'app/bower_components/hogan/build/hogan',
-    'templates': 'app/js/templates'
+    'templates': 'app/js/templates',
+
+    // Test Fixtures
+    'fixtures': 'test/fixtures'
   },
 
   // ask Require.js to load these files (all our tests)

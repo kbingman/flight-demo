@@ -13,27 +13,24 @@ define(function (require) {
    */
 
   function withAjax() {
-    this.defaultAttrs({
 
-    });
-    
     /*
-      Take a options argument with the standard XHR 
+      Take a options argument with the standard XHR
       attributes, but prepends the URL with the setting
       base domain
     */
     this.ajax = function(options) {
-      
+
       var events = options.events;
 
       var xhr = $.extend(options.xhr, {
         context: this,
-        url: options.xhr.url, //settings.api + 
+        url: options.xhr.url, //settings.api +
         dataType: 'json'
       });
-      
+
       var request = $.ajax(xhr);
-      
+
       for (var e in events) {
         request[e]($.proxy(function() {
           var args = [].slice.call(arguments);
@@ -50,9 +47,6 @@ define(function (require) {
       return request;
     };
 
-    // this.after('initialize', function () {
-    //   
-    // });
   }
 
 });

@@ -15,7 +15,6 @@ define(function(defineComponent, router) {
     }
 
     this.listenToURL = function(e, data) {
-      // console.log(data.path)
       this.navigate(data.path)
     }
 
@@ -35,9 +34,9 @@ define(function(defineComponent, router) {
 
     this.after('initialize', function() {
       this.defineRoute({
-          '/': 'index',
-          '/articles/:id/': 'showArticle',
-          '/images': 'showImages'
+        '/': 'index',
+        '/articles/:id/': 'showArticle',
+        '/images': 'showImages'
       });
       this.initialRoute();
       this.on('navigateToURL', this.listenToURL)
