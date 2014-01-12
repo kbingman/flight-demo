@@ -24,7 +24,8 @@ define(function(require) {
         this.component.$node.find('.new').click();
 
         expect(eventSpy).toHaveBeenTriggeredOnAndWith(document, {
-          title: 'untitled'
+          title: 'untitled',
+          content: '<p>Enter content here</p>'
         });
       });
 

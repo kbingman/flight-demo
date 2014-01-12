@@ -4,49 +4,48 @@ define(function(require) {
   var fixtures = require('fixtures/articles');
   var articles = fixtures.articles;
   var ajaxResponse = {
-    success: {
+    done: {
       status: 200,
       responseText: JSON.stringify(articles)
     },
-    notFound: {
+    fail: {
       status: 404,
-      responseText: '{ error: "Not found" }'
-    },
-    serverError: {
-      status: 500,
       responseText: '{ error: "Not found" }'
     }
   };
 
   describeComponent('data/article_index_data', function () {
+    var doneEventSpy;
+    var failEventSpy;
+    var request;
 
     beforeEach(function () {
       jasmine.Ajax.useMock();
       setupComponent();
+
+      doneEventSpy = spyOnEvent(document, 'uiRenderPageIndex');
+      failEventSpy = spyOnEvent(document, 'ajaxError');
+
+      this.component.trigger('dataLoadPages');
+      request = mostRecentAjaxRequest();
     });
 
-    it('should use the correct URL', function () {
-      this.component.trigger('dataLoadPages');
-      var request = mostRecentAjaxRequest();
-
+    it('should use the correct URL', function() {
       expect(request.url).toEqual('/api/pages');
     });
 
-    it('should use the correct Method', function () {
-      this.component.trigger('dataLoadPages');
-      var request = mostRecentAjaxRequest();
-
+    it('should use the GET method', function() {
       expect(request.method).toEqual('GET');
     });
 
-    it('should trigger "uiRenderPageIndex" on success', function () {
-      var eventSpy = spyOnEvent(document, 'uiRenderPageIndex');
-      this.component.trigger('dataLoadPages');
+    it('should trigger "uiRenderPageIndex" on success', function() {
+      request.response(ajaxResponse.done);
+      expect(doneEventSpy).toHaveBeenTriggeredOn(document);
+    });
 
-      var request = mostRecentAjaxRequest();
-      request.response(ajaxResponse.success);
-
-      expect(eventSpy).toHaveBeenTriggeredOn(document);
+    it('should trigger "ajaxError" on 404', function() {
+      request.response(ajaxResponse.fail);
+      expect(failEventSpy).toHaveBeenTriggeredOn(document);
     });
 
   });

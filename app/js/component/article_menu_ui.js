@@ -9,35 +9,36 @@ define(function (require) {
 
   function articleMenuUI() {
     this.defaultAttrs({
-      newItemSelector: 'a.new',
-      navItem: 'a.nav'
+      newItemSelector: '[data-new="article"]',
+      navItem: '[data-nav]'
     });
 
     this.render = function(e, data) {
       var markup = this.renderTemplate({
-        template: 'articles/menu.mustache'
+        template: 'articles/menu'
       });
       this.$node.html(markup);
-    }
+    };
 
-    this.click = function(e, data) {
+    this.newPage = function(e, data) {
       e.preventDefault();
       this.trigger('dataCreatePage', {
-        title: 'untitled'
-      })
-    }
+        title: 'untitled',
+        content: '<p>Enter content here</p>'
+      });
+    };
 
     this.navigate = function(e, data) {
       e.preventDefault();
       var path = $(e.target).attr('href');
 
       this.trigger('navigateToURL', { path: path });
-    }
+    };
 
     this.after('initialize', function () {
       this.render();
       this.on('click', {
-        newItemSelector: this.click,
+        newItemSelector: this.newPage,
         navItem: this.navigate
       });
     });

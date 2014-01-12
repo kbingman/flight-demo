@@ -38,7 +38,7 @@ define(function (require) {
           fail: 'ajaxError'
         }
       });
-    }
+    };
 
     this.create = function(e, data) {
       this.ajax({
@@ -52,7 +52,7 @@ define(function (require) {
           fail: 'ajaxError'
         }
       });
-    }
+    };
 
     this.update = function(e, data) {
       // console.log(data)
@@ -61,8 +61,8 @@ define(function (require) {
           url: '/api/pages/' + data._id,
           type: 'POST',
           data: {
-              'page': data,
-              '_method': 'PUT'
+            'page': data,
+            '_method': 'PUT'
           }
         },
         events: {
@@ -70,7 +70,7 @@ define(function (require) {
           fail: 'ajaxError'
         }
       });
-    }
+    };
 
     this.after('initialize', function () {
       this.on(document, 'dataLoadSinglePage', this.fetch);

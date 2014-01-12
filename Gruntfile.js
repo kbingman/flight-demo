@@ -146,7 +146,8 @@ module.exports = function (grunt) {
             options: {
               prettify: true,
               defaultName: function(file) {
-                return file.toLowerCase().replace('app/templates/','');
+                var basename = file.toLowerCase().replace('app/templates/','');
+                return basename.replace('.mustache', '');
               },
               amdWrapper: true,
               amdRequire: {

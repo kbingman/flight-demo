@@ -32,7 +32,7 @@ define(function (require) {
           fail: 'ajaxError'
         }
       });
-    }
+    };
 
     this.after('initialize', function () {
       this.on(document, 'dataLoadPages', this.get);

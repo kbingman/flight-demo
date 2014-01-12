@@ -28,18 +28,18 @@ define(function(require) {
         expect(slug.text().trim()).toEqual('title');
       });
 
-      // it('should render the article slug', function() {
-      //   var content = this.component.$node.find('p').text().trim();
+      it('should render the article content', function() {
+        var content = this.component.$node.find('[data-attr="content"]');
 
-      //   expect(content).toEqual('content');
-      // });
+        expect(content.text().trim()).toEqual('text');
+      });
 
     });
 
     describe('Events', function () {
 
       beforeEach(function () {
-        var template = Templates['articles/show.mustache'];
+        var template = Templates['articles/show'];
         var html = template.render(article);
 
         setupComponent();

@@ -1,4 +1,6 @@
-define(function(defineComponent, router) {
+define(function(require) {
+
+  'use strict';
 
   var defineComponent = require('flight/lib/component');
   var withRouter = require('flight-router/lib/with_route');
@@ -12,11 +14,11 @@ define(function(defineComponent, router) {
       this.navigate(document.location.pathname, {
         forced: true
       });
-    }
+    };
 
     this.listenToURL = function(e, data) {
-      this.navigate(data.path)
-    }
+      this.navigate(data.path);
+    };
 
     this.index = function() {
       this.trigger('dataLoadPages');
@@ -39,7 +41,7 @@ define(function(defineComponent, router) {
         '/images': 'showImages'
       });
       this.initialRoute();
-      this.on('navigateToURL', this.listenToURL)
+      this.on('navigateToURL', this.listenToURL);
     });
 
   }

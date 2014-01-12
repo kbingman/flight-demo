@@ -2,23 +2,14 @@ define(function (require) {
 
   'use strict';
 
-  /**
-   * Module exports
-   */
-
   return withAjax;
-
-  /**
-   * Module function
-   */
 
   function withAjax() {
 
-    /*
-      Take a options argument with the standard XHR
-      attributes, but prepends the URL with the setting
-      base domain
-    */
+    // Takes an options argument with the standard XHR
+    // attributes, but prepends the URL with the setting
+    // base domain
+
     this.ajax = function(options) {
 
       var events = options.events;

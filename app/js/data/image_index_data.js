@@ -25,7 +25,7 @@ define(function (require) {
     });
 
     this.get = function() {
-      console.log('image data')
+      console.log('image data');
       this.ajax({
         xhr: {
           url: 'http://localhost:5000' + '/api/images',
@@ -36,7 +36,7 @@ define(function (require) {
           fail: 'ajaxError'
         }
       });
-    }
+    };
 
     this.after('initialize', function () {
       this.on(document, 'dataLoadImages', this.get);

@@ -17,17 +17,17 @@ define(function (require) {
       var path = $(e.target).attr('href');
 
       this.trigger('navigateToURL', { path: path });
-    }
+    };
 
     this.render = function(e, data) {
       var markup = this.renderTemplate({
-        template: 'articles/index.mustache',
+        template: 'articles/index',
         renderParams: {
           articles: data
         }
       });
       this.$node.html(markup);
-    }
+    };
 
     this.after('initialize', function () {
       this.on(document, 'uiRenderPageIndex', this.render);
