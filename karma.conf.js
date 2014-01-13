@@ -32,7 +32,7 @@ module.exports = function (config) {
       // {pattern: 'app/bower_components/flight/**/*.js', included: false},
       { pattern: 'app/bower_components/**/*.js', included: false },
       { pattern: 'app/js/**/*.js', included: false },
-      { pattern: 'test/fixtures/**/*', included: false },
+      { pattern: 'test/fixtures/**/*', included: false, served: true },
       { pattern: 'test/integration/**/*.spec.js', included: false },
       { pattern: 'test/spec/**/*.spec.js', included: false },
 
@@ -60,8 +60,13 @@ module.exports = function (config) {
     // - PhantomJS
     // - IE (only Windows)
     browsers: [
+<<<<<<< Updated upstream
       'PhantomJS',
       'Chrome'
+=======
+      'Chrome',
+      'PhantomJS'
+>>>>>>> Stashed changes
     ],
 
     // If browser does not capture in given timeout [ms], kill it
