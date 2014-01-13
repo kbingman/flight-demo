@@ -10,13 +10,12 @@ define(function (require) {
   function articleMenuUI() {
     this.defaultAttrs({
       newItemSelector: '[data-new="article"]',
-      navItem: '[data-nav]'
+      navItem: '[data-nav]',
+      template: 'articles/menu'
     });
 
     this.render = function(e, data) {
-      var markup = this.renderTemplate({
-        template: 'articles/menu'
-      });
+      var markup = this.renderTemplate();
       this.$node.html(markup);
     };
 

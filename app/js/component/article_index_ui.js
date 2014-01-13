@@ -10,6 +10,7 @@ define(function (require) {
   function articleIndexUI() {
     this.defaultAttrs({
       menuItemSelector: '.articleLink',
+      template: 'articles/index'
     });
 
     this.navigate = function(e, data) {
@@ -21,7 +22,6 @@ define(function (require) {
 
     this.render = function(e, data) {
       var markup = this.renderTemplate({
-        template: 'articles/index',
         renderParams: {
           articles: data
         }

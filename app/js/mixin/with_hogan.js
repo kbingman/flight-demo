@@ -11,12 +11,12 @@ define(function (require) {
     // @param request.template {String} Hogan template name
     // @param request.renderParams {Options} Optional Data
     //
-    this.renderTemplate = function (request) {
+    this.renderTemplate = function (data) {
+      var request = data || {};
       var templateName = request.template || this.attr.template;
       var template = Templates[templateName];
-      var html = template.render(request.renderParams, request.partials);
 
-      return html;
+      return template.render(request.renderParams, request.partials);
     };
 
     // this.render = function(e, data) {

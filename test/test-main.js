@@ -19,7 +19,7 @@ requirejs.config({
     'page': 'app/js/page',
 
     // Hogan Templating Support
-    'hogan': 'app/bower_components/hogan/build/hogan',
+    'hogan': 'app/bower_components/hogan/web/builds/2.0.0/hogan-2.0.0.amd',
     'templates': 'app/js/templates',
 
     // Test Fixtures

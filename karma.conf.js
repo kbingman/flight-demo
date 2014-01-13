@@ -12,7 +12,7 @@ module.exports = function (config) {
     basePath: '',
 
     // frameworks to use
-    frameworks: ['jasmine', 'effroi'],
+    frameworks: ['jasmine'],
 
     // list of files / patterns to load in the browser
     files: [
@@ -32,7 +32,7 @@ module.exports = function (config) {
       // {pattern: 'app/bower_components/flight/**/*.js', included: false},
       { pattern: 'app/bower_components/**/*.js', included: false },
       { pattern: 'app/js/**/*.js', included: false },
-      { pattern: 'test/fixtures/**/*.js', included: false },
+      { pattern: 'test/fixtures/**/*', included: false },
       { pattern: 'test/integration/**/*.spec.js', included: false },
       { pattern: 'test/spec/**/*.spec.js', included: false },
 
@@ -60,7 +60,8 @@ module.exports = function (config) {
     // - PhantomJS
     // - IE (only Windows)
     browsers: [
-      'PhantomJS'
+      'PhantomJS',
+      'Chrome'
     ],
 
     // If browser does not capture in given timeout [ms], kill it
