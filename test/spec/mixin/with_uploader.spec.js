@@ -5,7 +5,6 @@ describeMixin('mixin/with_uploader', function () {
   var xhr = new XMLHttpRequest();
   var fileReader = new FileReader();
 
-
   xhr.open('GET', '/base/test/fixtures/Tieboardingcraft.jpg', true);
   xhr.responseType = 'blob';
   xhr.addEventListener('load', onLoadHandler, false);
@@ -26,12 +25,15 @@ describeMixin('mixin/with_uploader', function () {
       return
     }
 
-    fileReader.onload = function (evt) {
-      // Read out file contents as a Data URL
-      var result = evt.target.result;
-      // Set image src to Data URL
-      // console.log(result)
-    };
+    // ileReader.onload = function (evt) {
+    //  // Read out file contents as a Data URL
+    //  var result = evt.target.result;
+    //  // Set image src to Data URL
+    //  // console.log(result)
+    //    it('should be defined', function () {
+    //      expect(result).toBeDefined();
+    //    });
+    // ;
     // Load blob as Data URL
     fileReader.readAsDataURL(xhr.response);
 
