@@ -2,25 +2,26 @@
 
 describeMixin('mixin/with_uploader', function () {
 
-  var hasData = false, image;
+  var hasImage = false;
+  var image;
 
   it('is defined', function () {
     expect(this.component).toBeDefined();
   });
 
-  describe('javaclassstreamreader', function() {
+  describe('image uploader', function() {
 
     // Initialize the component and attach it to the DOM
     beforeEach(function () {
       setupComponent();
 
-      loadSimpleDataView(function(dataView) {
-        image = dataView;
-        hasData = true;
+      loadImage(function(requestedImage) {
+        image = requestedImage;
+        hasImage = true;
       });
 
       waitsFor(function() {
-        return hasData;
+        return hasImage;
       }, 'Never retrieved file', 5000);
     });
 
@@ -34,16 +35,15 @@ describeMixin('mixin/with_uploader', function () {
 
 });
 
-function loadSimpleDataView(callback) {
+function loadImage(callback) {
   var dataView;
   var xhr = new XMLHttpRequest();
   var fileReader = new FileReader();
   xhr.open('GET', '/base/test/fixtures/Tieboardingcraft.jpg', true);
   xhr.responseType = 'blob';
   xhr.onload = function() {
-    console.log(FileReader);
+    // console.log(fileReader);
     fileReader.onload = function(e){
-      // console.log('fileReader');
       var image = e.target.result;
       callback(image);
     };
