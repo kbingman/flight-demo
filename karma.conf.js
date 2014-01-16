@@ -12,7 +12,7 @@ module.exports = function (config) {
     basePath: '',
 
     // frameworks to use
-    frameworks: ['jasmine', 'mocha'],
+    frameworks: ['mocha'],
 
     // list of files / patterns to load in the browser
     files: [
@@ -20,9 +20,9 @@ module.exports = function (config) {
       'app/bower_components/es5-shim/es5-shim.js',
       'app/bower_components/es5-shim/es5-sham.js',
       'app/bower_components/jquery/jquery.js',
-      'app/bower_components/jasmine-jquery/lib/jasmine-jquery.js',
-      'app/bower_components/jasmine-flight/lib/jasmine-flight.js',
-      'app/bower_components/jasmine-ajax/lib/mock-ajax.js',
+      'app/bower_components/mocha/mocha.js',
+      'app/bower_components/mocha-flight/lib/mocha-flight.js',
+      'app/bower_components/chai/chai.js',
 
       // hack to load RequireJS after the shim libs
       'node_modules/karma-requirejs/lib/require.js',
@@ -33,7 +33,7 @@ module.exports = function (config) {
       { pattern: 'app/bower_components/**/*.js', included: false },
       { pattern: 'app/js/**/*.js', included: false },
       { pattern: 'test/fixtures/**/*', included: false },
-      { pattern: 'test/integration/**/*.spec.js', included: false },
+      // { pattern: 'test/integration/**/*.spec.js', included: false },
       { pattern: 'test/spec/**/*.spec.js', included: false },
 
       'test/test-main.js'
