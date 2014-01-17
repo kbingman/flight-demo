@@ -32,7 +32,8 @@ module.exports = function (config) {
       // {pattern: 'app/bower_components/flight/**/*.js', included: false},
       { pattern: 'app/bower_components/**/*.js', included: false },
       { pattern: 'app/js/**/*.js', included: false },
-      { pattern: 'test/fixtures/**/*', included: false },
+      { pattern: 'test/fixtures/**/*', included: false, served: true },
+      { pattern: 'test/helpers/**/*', included: false, served: true },
       { pattern: 'test/integration/**/*.spec.js', included: false },
       { pattern: 'test/spec/**/*.spec.js', included: false },
 
@@ -60,12 +61,11 @@ module.exports = function (config) {
     // - PhantomJS
     // - IE (only Windows)
     browsers: [
-      'PhantomJS',
       'Chrome'
     ],
 
     // If browser does not capture in given timeout [ms], kill it
-    captureTimeout: 5000,
+    captureTimeout: 10000,
 
     // Continuous Integration mode
     // if true, it capture browsers, run tests and exit
@@ -73,6 +73,6 @@ module.exports = function (config) {
 
     // Karma will report all the tests that are slower than given time limit (in
     // ms).
-    reportSlowerThan: 500
+    reportSlowerThan: 5000
   });
 };

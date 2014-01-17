@@ -60,12 +60,14 @@ define(function (require) {
 
       // Callbacks. These need to be here to get proper access to the component
       function onLoadstartHandler(e) {
+        console.log('fileUploadstart')
         component.trigger('fileUploadstart', {
           file: data.file
         });
       }
 
       function onLoadHandler(e) {
+        console.log('fileUpload')
         component.trigger('fileUpload');
       }
 
@@ -91,11 +93,15 @@ define(function (require) {
           return;
         }
 
+        console.log('status', status);
+        console.log('responseText', e.target.responseText);
+
         if (status === '200'){
           component.trigger('fileUploadDone', {
             response: e.target.responseText
           });
         } else {
+
           component.trigger('fileUploadError', {
             response: e.target.responseText,
             error: status

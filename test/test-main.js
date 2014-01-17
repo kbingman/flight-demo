@@ -23,7 +23,8 @@ requirejs.config({
     'templates': 'app/js/templates',
 
     // Test Fixtures
-    'fixtures': 'test/fixtures'
+    'fixtures': 'test/fixtures',
+    'helpers': 'test/helpers'
   },
 
   // ask Require.js to load these files (all our tests)

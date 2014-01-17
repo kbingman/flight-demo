@@ -1,42 +1,96 @@
-'use strict';
+define(function(require) {
+  'use strict';
 
-describeMixin('mixin/with_uploader', function () {
+  describeMixin('mixin/with_uploader', function () {
 
-  var xhr = new XMLHttpRequest();
-  var fileReader = new FileReader();
+    describe('image uploader with images', function() {
 
-  xhr.open('GET', '/base/test/fixtures/Tieboardingcraft.jpg', true);
-  xhr.responseType = 'blob';
-  xhr.addEventListener('load', onLoadHandler, false);
-  xhr.onerror = dump;
-  xhr.send();
+      beforeEach(function() {
+        setupComponent();
+      });
 
-  // Initialize the component and attach it to the DOM
-  beforeEach(function () {
-    setupComponent();
+      it('is defined', function() {
+        expect(this.component).toBeDefined();
+      });
+
+      it('creates a file input', function() {
+        var fileInput = this.component.attr.fileInput;
+
+        expect(fileInput[0].tagName).toEqual('INPUT');
+      });
+
+    });
+
+    describe('image uploader with images', function() {
+
+      var loadImage = require('helpers/load_image');
+      var hasImage = false;
+      var image;
+      var doneEventSpy;
+      var uploadStartEventSpy;
+      var request;
+
+      var ajaxResponse = {
+        done: {
+          status: 200,
+          responseText: 'fibble'
+        },
+        fail: {
+          status: 404,
+          responseText: '{ error: "Not found" }'
+        }
+      };
+
+      beforeEach(function() {
+
+        jasmine.Ajax.useMock();
+        setupComponent({
+          fileUploadPath: '/api/images'
+        });
+
+        // Loads a test image, then uses Jasmine's aync features
+        // to wait for it
+        loadImage(function(requestedImage) {
+          image = requestedImage;
+          hasImage = true;
+        });
+
+        waitsFor(function() {
+          return hasImage;
+        }, 'Never retrieved file', 5000);
+      });
+
+      it('loads the image', function() {
+        runs(function() {
+          expect(image).toBeDefined();
+        });
+      });
+
+      it('attaches the file to the input', function() {
+        // doneEventSpy = spyOnEvent(document, 'uiRenderPage');
+
+        var uploadStartEventSpy = spyOnEvent(document, 'fileUploadstart');
+        var fileUploadEventSpy = spyOnEvent(document, 'fileUpload');
+        runs(function() {
+          this.component.trigger('uploadFile', {
+            file: image
+          });
+          request = mostRecentAjaxRequest();
+          console.log('request', request);
+          // request.response(ajaxResponse.fail);
+          // expect(request.url).toEqual('/api/images');
+
+          expect(uploadStartEventSpy).toHaveBeenTriggeredOnAndWith(document, {
+            file: image
+          });
+
+          // expect(fileUploadEventSpy).toHaveBeenTriggeredOn(document);
+        });
+
+      });
+
+    });
+
   });
-
-  it('should be defined', function () {
-    expect(this.component).toBeDefined();
-  });
-
-  function onLoadHandler() {
-    if (xhr.status !== 200) {
-      return
-    }
-
-    // ileReader.onload = function (evt) {
-    //  // Read out file contents as a Data URL
-    //  var result = evt.target.result;
-    //  // Set image src to Data URL
-    //  // console.log(result)
-    //    it('should be defined', function () {
-    //      expect(result).toBeDefined();
-    //    });
-    // ;
-    // Load blob as Data URL
-    fileReader.readAsDataURL(xhr.response);
-
-  }
 
 });
