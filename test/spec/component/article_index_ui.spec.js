@@ -1,6 +1,6 @@
 'use strict';
 
-describeComponent('component/article_index_ui', function () {
+// describeComponent('component/article_index_ui', function () {
 
     describe('rendering', function() {
 
@@ -14,4 +14,4 @@ describeComponent('component/article_index_ui', function () {
         expect('foo').to.equal('foo');
       });
     });
-});
+// });
