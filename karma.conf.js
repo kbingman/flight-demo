@@ -12,13 +12,13 @@ module.exports = function (config) {
     basePath: '',
 
     // frameworks to use
-    frameworks: ['jasmine'],
+    frameworks: ['jasmine', 'requirejs'],
 
     // list of files / patterns to load in the browser
     files: [
       // loaded without require
-      'app/bower_components/es5-shim/es5-shim.js',
-      'app/bower_components/es5-shim/es5-sham.js',
+      // 'app/bower_components/es5-shim/es5-shim.js',
+      // 'app/bower_components/es5-shim/es5-sham.js',
       'app/bower_components/jquery/jquery.js',
       'app/bower_components/jasmine-jquery/lib/jasmine-jquery.js',
       'app/bower_components/jasmine-flight/lib/jasmine-flight.js',
