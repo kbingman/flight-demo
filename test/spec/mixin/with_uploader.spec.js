@@ -28,6 +28,7 @@ define(function(require) {
       var image;
       var doneEventSpy;
       var uploadStartEventSpy;
+      var fileUploadEventSpy;
       var request;
 
       var ajaxResponse = {
@@ -44,10 +45,14 @@ define(function(require) {
       beforeEach(function() {
 
         jasmine.Ajax.useMock();
+
         setupComponent({
           fileUploadPath: '/api/images'
         });
 
+        uploadStartEventSpy = spyOnEvent(document, 'fileUploadstart');
+        fileUploadEventSpy = spyOnEvent(document, 'fileUpload');
+        // fileUploadErrorEventSpy = spyOnEvent(document, 'fileUpload');
         // Loads a test image, then uses Jasmine's aync features
         // to wait for it
         loadImage(function(requestedImage) {
@@ -66,23 +71,34 @@ define(function(require) {
         });
       });
 
+      it('triggers "fileUploadstart"', function() {
+
+        runs(function() {
+          this.component.trigger('uploadFile', {
+            file: image
+          });
+
+          request = mostRecentAjaxRequest();
+          request.response(ajaxResponse.done);
+
+          // expect(uploadStartEventSpy).toHaveBeenTriggeredOn(document);
+        });
+
+      });
+
       it('attaches the file to the input', function() {
         // doneEventSpy = spyOnEvent(document, 'uiRenderPage');
 
-        var uploadStartEventSpy = spyOnEvent(document, 'fileUploadstart');
-        var fileUploadEventSpy = spyOnEvent(document, 'fileUpload');
         runs(function() {
           this.component.trigger('uploadFile', {
             file: image
           });
           request = mostRecentAjaxRequest();
-          console.log('request', request);
-          // request.response(ajaxResponse.fail);
-          // expect(request.url).toEqual('/api/images');
+          request.response(ajaxResponse.done);
 
-          expect(uploadStartEventSpy).toHaveBeenTriggeredOnAndWith(document, {
-            file: image
-          });
+          expect(request.url).toEqual('/api/images');
+          expect(request.method).toEqual('POST');
+          expect(request.status).toEqual(200);
 
           // expect(fileUploadEventSpy).toHaveBeenTriggeredOn(document);
         });
