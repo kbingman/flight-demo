@@ -20,7 +20,7 @@ module.exports = function (config) {
       'app/bower_components/es5-shim/es5-shim.js',
       'app/bower_components/es5-shim/es5-sham.js',
       'app/bower_components/jquery/jquery.js',
-      'app/bower_components/mocha/mocha.js',
+      // 'app/bower_components/mocha/mocha.js',
       'app/bower_components/mocha-flight/lib/mocha-flight.js',
       'app/bower_components/chai/chai.js',
 
@@ -60,8 +60,7 @@ module.exports = function (config) {
     // - PhantomJS
     // - IE (only Windows)
     browsers: [
-      'PhantomJS',
-      'Chrome'
+      'PhantomJS'
     ],
 
     // If browser does not capture in given timeout [ms], kill it

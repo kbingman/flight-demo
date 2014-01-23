@@ -38,34 +38,42 @@ define(function (require) {
       if (!this.attr.fileUploadPath) {
         throw 'you must specify a path to upload to';
       }
-
       var component = this;
-      var xhr = new XMLHttpRequest();
-      var formData = new FormData();
+      var fileData = new FormData();
+      // fileData.append('filename', file.name);
+      // fileData.append('mimetype', file.type);
+      fileData.append('image[file]', data.file);
+      // fileData.append('size', file.size);
 
-      for (var prop in this.attr.uploadFormData) {
-        formData.append(prop, this.attr.uploadFormData[prop]);
-      }
-      formData.append('image[file]', data.file);
+      $.ajax({
+        url: this.attr.fileUploadPath,
+        type: 'POST',
+        data: fileData,
+        contentType: false,
+        cache: false,
+        processData: false,
+        xhr: function() {
+          var _xhr = $.ajaxSettings.xhr();
+          console.log('_xhr', _xhr.upload);
+          if (_xhr.upload) {
+            console.log('fileUploadstart')
+            _xhr.upload.addEventListener('progress', onProgressHandler, false);
+            _xhr.upload.addEventListener('loadstart', onLoadstartHandler, false);
+            _xhr.upload.addEventListener('load', onLoadHandler, false);
+          }
+          return _xhr;
+        }
+      });
 
-      // Set up events
-      xhr.upload.addEventListener('loadstart', onLoadstartHandler, false);
-      xhr.upload.addEventListener('progress', onProgressHandler, false);
-      xhr.upload.addEventListener('load', onLoadHandler, false);
-      xhr.addEventListener('readystatechange', onReadystatechangeHandler, false);
-
-      // Post the data to the given URL
-      xhr.open('POST', this.attr.fileUploadPath, true);
-      xhr.send(formData);
-
-      // Callbacks. These need to be here to get proper access to the component
       function onLoadstartHandler(e) {
+        console.log('fileUploadstart')
         component.trigger('fileUploadstart', {
           file: data.file
         });
       }
 
       function onLoadHandler(e) {
+        console.log('fileUpload')
         component.trigger('fileUpload');
       }
 
@@ -76,34 +84,7 @@ define(function (require) {
           percent: percent
         });
       }
-
-      function onReadystatechangeHandler(e) {
-        var status = null;
-
-        if (xhr.readyState !== 4) {
-          return;
-        }
-
-        try {
-          status = e.target.status;
-        }
-        catch(error) {
-          return;
-        }
-
-        if (status === '200'){
-          component.trigger('fileUploadDone', {
-            response: e.target.responseText
-          });
-        } else {
-          component.trigger('fileUploadError', {
-            response: e.target.responseText,
-            error: status
-          });
-        }
-
-      }
-    };
+    }
 
     this.after('initialize', function () {
       this.setup();
