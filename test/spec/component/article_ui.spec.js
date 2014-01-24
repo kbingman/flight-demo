@@ -6,7 +6,7 @@ define(function(require) {
   var fixtures = require('fixtures/articles');
   var article = fixtures.article;
 
-  // describeComponent('component/article_ui', function () {
+  describeComponent('component/article_ui', function () {
 
     describe('rendering', function() {
 
@@ -16,23 +16,23 @@ define(function(require) {
         $(document).trigger('uiRenderPage', article);
       });
 
-      // it('should render the article title', function() {
-      //   var title = this.component.$node.find('[data-attr="title"]');
-//
-      //   expect(title.text().trim()).toEqual('The Title');
-      // });
-//
-      // it('should render the article slug', function() {
-      //   var slug = this.component.$node.find('[data-attr="slug"]');
-//
-      //   expect(slug.text().trim()).toEqual('title');
-      // });
-//
-      // it('should render the article content', function() {
-      //   var content = this.component.$node.find('[data-attr="content"]');
-//
-      //   expect(content.text().trim()).toEqual('text');
-      // });
+      it('should render the article title', function() {
+        var title = this.component.$node.find('[data-attr="title"]');
+
+        expect(title.text().trim()).to.equal('The Title');
+      });
+
+      it('should render the article slug', function() {
+        var slug = this.component.$node.find('[data-attr="slug"]');
+
+        expect(slug.text().trim()).to.equal('title');
+      });
+
+      it('should render the article content', function() {
+        var content = this.component.$node.find('[data-attr="content"]');
+
+        expect(content.text().trim()).to.equal('text');
+      });
 
     });
 
@@ -62,6 +62,6 @@ define(function(require) {
 //
     // });
 
-  // });
+  });
 
 });

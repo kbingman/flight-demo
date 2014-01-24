@@ -12,27 +12,33 @@ module.exports = function (config) {
     basePath: '',
 
     // frameworks to use
-    frameworks: ['mocha'],
+    frameworks: ['mocha', 'requirejs', 'chai'],
+
+    // preprocessors: {
+    //   '**/*.html': []
+    // },
 
     // list of files / patterns to load in the browser
     files: [
       // loaded without require
-      'app/bower_components/es5-shim/es5-shim.js',
-      'app/bower_components/es5-shim/es5-sham.js',
+      // 'app/bower_components/es5-shim/es5-shim.js',
+      // 'app/bower_components/es5-shim/es5-sham.js',
       'app/bower_components/jquery/jquery.js',
-      // 'app/bower_components/mocha/mocha.js',
       'app/bower_components/mocha-flight/lib/mocha-flight.js',
-      'app/bower_components/chai/chai.js',
+      'node_modules/sinon/lib/sinon.js',
+      'node_modules/sinon/lib/sinon/spy.js',
+      'node_modules/sinon/lib/sinon/utils/fake_server.js',
 
       // hack to load RequireJS after the shim libs
-      'node_modules/karma-requirejs/lib/require.js',
-      'node_modules/karma-requirejs/lib/adapter.js',
+      // 'node_modules/karma-requirejs/lib/require.js',
+      // 'node_modules/karma-requirejs/lib/adapter.js',
 
       // loaded with require
       // {pattern: 'app/bower_components/flight/**/*.js', included: false},
       { pattern: 'app/bower_components/**/*.js', included: false },
       { pattern: 'app/js/**/*.js', included: false },
       { pattern: 'test/fixtures/**/*', included: false },
+      { pattern: 'test/mock/**/*', included: false },
       // { pattern: 'test/integration/**/*.spec.js', included: false },
       { pattern: 'test/spec/**/*.spec.js', included: false },
 
@@ -60,7 +66,7 @@ module.exports = function (config) {
     // - PhantomJS
     // - IE (only Windows)
     browsers: [
-      'PhantomJS'
+      'Chrome'
     ],
 
     // If browser does not capture in given timeout [ms], kill it

@@ -4,6 +4,10 @@ var tests = Object.keys(window.__karma__.files).filter(function (file) {
   return (/\.spec\.js$/.test(file));
 });
 
+mocha.setup('mocha-flight');
+
+var expect = chai.expect;
+
 requirejs.config({
   // Karma serves files from '/base'
   baseUrl: '/base',
@@ -23,7 +27,8 @@ requirejs.config({
     'templates': 'app/js/templates',
 
     // Test Fixtures
-    'fixtures': 'test/fixtures'
+    'fixtures': 'test/fixtures',
+    'mock': 'test/mock',
   },
 
   // ask Require.js to load these files (all our tests)

@@ -2,12 +2,31 @@
 
 define(function(require) {
 
-  // describeComponent('component/article_menu_ui', function () {
+  var Templates = require('templates');
+
+  describeComponent('component/article_menu_ui', function () {
 
     describe('events', function() {
 
-      // setupComponent('<header class="v-main-header" data-container="menu"><a href="#" class="new">New</a><a href="/images" class="nav">Images</a></header>');
-      // });
+      beforeEach(function () {
+        var template = Templates['articles/menu'];
+        var html = template.render();
+
+        // Initialize the component and attach it to the DOM
+        setupComponent(html);
+      });
+
+      it('should render the nav links', function() {
+        var navLinks = this.component.$node.find('.nav');
+
+        expect(navLinks.length).to.equal(2);
+      });
+
+      it('should render the new article links', function() {
+        var newArticleLinks = this.component.$node.find('.new');
+
+        expect(newArticleLinks.length).to.equal(1);
+      });
 
       // it('should trigger the "navigateToURL" event on click', function() {
       //   var eventSpy = spyOnEvent(document, 'navigateToURL');
@@ -30,5 +49,5 @@ define(function(require) {
 
     });
 
-  // });
+  });
 });
