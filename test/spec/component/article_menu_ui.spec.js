@@ -2,15 +2,21 @@
 
 define(function(require) {
 
+  var Templates = require('templates');
+
   describeComponent('component/article_menu_ui', function () {
 
     describe('events', function() {
 
       beforeEach(function () {
-        setupComponent('<header class="v-main-header" data-container="menu"><a href="#" class="new">New</a><a href="/images" class="nav">Images</a></header>');
+        var template = Templates['articles/menu'];
+        var html = template.render();
+
+        // Initialize the component and attach it to the DOM
+        setupComponent(html);
       });
 
-      it('should trigger the "navigateToURL" event on click', function() {
+      it('triggers the "navigateToURL" event on click', function() {
         var eventSpy = spyOnEvent(document, 'navigateToURL');
         this.component.$node.find('.nav').click();
 
@@ -19,7 +25,7 @@ define(function(require) {
         });
       });
 
-      it('should trigger the "dataCreatePage" event on click', function() {
+      it('triggers the "dataCreatePage" event on click', function() {
         var eventSpy = spyOnEvent(document, 'dataCreatePage');
         this.component.$node.find('.new').click();
 

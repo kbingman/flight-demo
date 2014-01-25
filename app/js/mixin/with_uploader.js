@@ -54,7 +54,6 @@ define(function (require) {
         processData: false,
         xhr: function() {
           var _xhr = $.ajaxSettings.xhr();
-          console.log('_xhr', _xhr.upload);
           if (_xhr.upload) {
             console.log('fileUploadstart')
             _xhr.upload.addEventListener('progress', onProgressHandler, false);

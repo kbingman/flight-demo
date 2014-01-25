@@ -46,8 +46,8 @@ module.exports = function (config) {
     ],
 
     // test results reporter to use
-    // possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
-    reporters: ['dots'],
+    // possible values: 'dots', 'progress', 'junit', 'growl', 'coverage', 'spec'
+    reporters: ['spec'],
 
     // enable / disable watching file and executing tests whenever any file changes
     autoWatch: true,

@@ -16,12 +16,12 @@ define(function(require) {
         $(document).trigger('uiRenderPageIndex', articles);
       });
 
-      it('should render a list of articles', function() {
+      it('renders a list of articles', function() {
         var articles = this.component.$node.find('li');
         expect(articles.length).toEqual(1);
       });
 
-      it('should render a article title', function() {
+      it('renders a article title', function() {
         var title = this.component.$node.find('h1').first();
         expect(title.text().trim()).toEqual('The Title');
       });
@@ -40,7 +40,7 @@ define(function(require) {
         setupComponent(html);
       });
 
-      it('should trigger the "navigateToURL" event on click', function() {
+      it('triggers the "navigateToURL" event on click', function() {
         var eventSpy = spyOnEvent(document, 'navigateToURL');
         this.component.$node.find('.articleLink').click();
 

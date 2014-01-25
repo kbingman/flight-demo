@@ -91,7 +91,7 @@ define(function(require) {
 
         runs(function() {
           this.component.trigger('uploadFile', {
-            file: image
+            file: 'image'
           });
           request = mostRecentAjaxRequest();
           request.response(ajaxResponse.done);

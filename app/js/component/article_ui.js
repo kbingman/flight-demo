@@ -19,18 +19,18 @@ define(function (require) {
     });
 
     this.watch = function(e, data) {
-      var self = this;
-
       var $target = $(e.target);
+
       var attr = $target.data('attr');
       var value = $target.text().trim();
       var id = $target.data('id');
       var results = {
         '_id': id
       };
+
       results[attr] = value;
 
-      self.trigger(document, 'dataUpdatePage', results);
+      this.trigger(document, 'dataUpdatePage', results);
     };
 
     this.update = function(e, data) {
