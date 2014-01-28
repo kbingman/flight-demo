@@ -54,33 +54,39 @@ define(function (require) {
         processData: false,
         xhr: function() {
           var _xhr = $.ajaxSettings.xhr();
+
           if (_xhr.upload) {
-            console.log('fileUploadstart')
             _xhr.upload.addEventListener('progress', onProgressHandler, false);
             _xhr.upload.addEventListener('loadstart', onLoadstartHandler, false);
             _xhr.upload.addEventListener('load', onLoadHandler, false);
           }
           return _xhr;
         }
-      });
+      })
+        .done(function(response){
+          // console.log('success')
+        })
+        .fail(function(response){
+          // console.log('error')
+        });
 
       function onLoadstartHandler(e) {
-        console.log('fileUploadstart')
+        //console.log('fileUploadstart')
         component.trigger('fileUploadstart', {
           file: data.file
         });
       }
 
       function onLoadHandler(e) {
-        console.log('fileUpload')
+        // console.log('fileUpload')
         component.trigger('fileUpload');
       }
 
       function onProgressHandler(e) {
-        var percent = e.loaded / e.total * 100;
+        // var percent = e.loaded / e.total * 100;
 
         component.trigger('fileUploadProgress', {
-          percent: percent
+          percent: 20
         });
       }
     }

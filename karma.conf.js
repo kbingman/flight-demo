@@ -23,6 +23,10 @@ module.exports = function (config) {
       'app/bower_components/jasmine-jquery/lib/jasmine-jquery.js',
       'app/bower_components/jasmine-flight/lib/jasmine-flight.js',
       'app/bower_components/jasmine-ajax/lib/mock-ajax.js',
+      // 'node_modules/sinon/lib/sinon.js',
+      // 'node_modules/sinon/lib/sinon/util/fake_server.js',
+      // 'node_modules/sinon/lib/sinon/util/fake_xml_http_request.js',
+
 
       // hack to load RequireJS after the shim libs
       'node_modules/karma-requirejs/lib/require.js',

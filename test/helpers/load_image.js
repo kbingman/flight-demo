@@ -14,7 +14,7 @@ define(function(require) {
           var image = e.target.result;
           callback(image);
         };
-        fileReader.readAsDataURL(this.response);
+        fileReader.readAsArrayBuffer(this.response);
       };
 
       xhr.onerror = dump;

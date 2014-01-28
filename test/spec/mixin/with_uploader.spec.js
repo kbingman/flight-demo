@@ -9,10 +9,6 @@ define(function(require) {
         setupComponent();
       });
 
-      it('is defined', function() {
-        expect(this.component).toBeDefined();
-      });
-
       it('creates a file input', function() {
         var fileInput = this.component.attr.fileInput;
 
@@ -23,12 +19,9 @@ define(function(require) {
 
     describe('image uploader with images', function() {
 
-      var loadImage = require('helpers/load_image');
-      var hasImage = false;
-      var image;
       var doneEventSpy;
       var uploadStartEventSpy;
-      var fileUploadEventSpy;
+      var fileUploadProgressSpy;
       var request;
 
       var ajaxResponse = {
@@ -43,66 +36,43 @@ define(function(require) {
       };
 
       beforeEach(function() {
-
         jasmine.Ajax.useMock();
-
         setupComponent({
           fileUploadPath: '/api/images'
         });
 
         uploadStartEventSpy = spyOnEvent(document, 'fileUploadstart');
-        fileUploadEventSpy = spyOnEvent(document, 'fileUpload');
-        // fileUploadErrorEventSpy = spyOnEvent(document, 'fileUpload');
-        // Loads a test image, then uses Jasmine's aync features
-        // to wait for it
-        loadImage(function(requestedImage) {
-          image = requestedImage;
-          hasImage = true;
-        });
+        fileUploadProgressSpy = spyOnEvent(document, 'fileUploadProgress');
 
-        waitsFor(function() {
-          return hasImage;
-        }, 'Never retrieved file', 5000);
-      });
-
-      it('loads the image', function() {
-        runs(function() {
-          expect(image).toBeDefined();
+        this.component.trigger('uploadFile', {
+          file: 'image'
         });
+        request = mostRecentAjaxRequest();
       });
 
       it('triggers "fileUploadstart"', function() {
-
-        runs(function() {
-          this.component.trigger('uploadFile', {
-            file: image
-          });
-
-          request = mostRecentAjaxRequest();
-          request.response(ajaxResponse.done);
-
-          // expect(uploadStartEventSpy).toHaveBeenTriggeredOn(document);
-        });
-
+        request.response(ajaxResponse.done);
+        expect(uploadStartEventSpy).toHaveBeenTriggeredOn(document);
       });
 
-      it('attaches the file to the input', function() {
-        // doneEventSpy = spyOnEvent(document, 'uiRenderPage');
+      it('triggers "fileUploadProgressSpy"', function() {
+        request.response(ajaxResponse.done);
+        expect(fileUploadProgressSpy).toHaveBeenTriggeredOn(document);
+      });
 
-        runs(function() {
-          this.component.trigger('uploadFile', {
-            file: 'image'
-          });
-          request = mostRecentAjaxRequest();
-          request.response(ajaxResponse.done);
+      it('returns the correct url, status and method on success', function() {
+        request.response(ajaxResponse.done);
+        expect(request.url).toEqual('/api/images');
+      });
 
-          expect(request.url).toEqual('/api/images');
-          expect(request.method).toEqual('POST');
-          expect(request.status).toEqual(200);
+      it('returns the correct method on success', function() {
+        request.response(ajaxResponse.done);
+        expect(request.method).toEqual('POST');
+      });
 
-          // expect(fileUploadEventSpy).toHaveBeenTriggeredOn(document);
-        });
-
+      it('returns the correct status on success', function() {
+        request.response(ajaxResponse.done);
+        expect(request.status).toEqual(200);
       });
 
     });
