@@ -22,6 +22,8 @@ define(function(require) {
       var doneEventSpy;
       var uploadStartEventSpy;
       var fileUploadProgressSpy;
+      var fileUploadEventSpy;
+      var fileUploadErrorSpy;
       var request;
 
       var ajaxResponse = {
@@ -30,7 +32,7 @@ define(function(require) {
           responseText: 'fibble'
         },
         fail: {
-          status: 404,
+          status: 500,
           responseText: '{ error: "Not found" }'
         }
       };
@@ -43,6 +45,8 @@ define(function(require) {
 
         uploadStartEventSpy = spyOnEvent(document, 'fileUploadstart');
         fileUploadProgressSpy = spyOnEvent(document, 'fileUploadProgress');
+        fileUploadEventSpy = spyOnEvent(document, 'fileUpload');
+        fileUploadErrorSpy = spyOnEvent(document, 'fileUploadError');
 
         this.component.trigger('uploadFile', {
           file: 'image'
@@ -59,6 +63,16 @@ define(function(require) {
         request.response(ajaxResponse.done);
         expect(fileUploadProgressSpy).toHaveBeenTriggeredOn(document);
       });
+
+      it('triggers "fileUploadEventSpy"', function() {
+        request.response(ajaxResponse.done);
+        expect(fileUploadEventSpy).toHaveBeenTriggeredOn(document);
+      });
+
+      // it('triggers "fileUploadError"', function() {
+      //   request.response(ajaxResponse.fail);
+      //   expect(fileUploadErrorSpy).toHaveBeenTriggeredOn(document);
+      // });
 
       it('returns the correct url, status and method on success', function() {
         request.response(ajaxResponse.done);

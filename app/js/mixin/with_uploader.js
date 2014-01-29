@@ -59,16 +59,12 @@ define(function (require) {
             _xhr.upload.addEventListener('progress', onProgressHandler, false);
             _xhr.upload.addEventListener('loadstart', onLoadstartHandler, false);
             _xhr.upload.addEventListener('load', onLoadHandler, false);
+            // _xhr.upload.addEventListener('error', onErrorHandler, false);
           }
+          // _xhr.addEventListener('error', onErrorHandler, false);
           return _xhr;
         }
-      })
-        .done(function(response){
-          // console.log('success')
-        })
-        .fail(function(response){
-          // console.log('error')
-        });
+      });
 
       function onLoadstartHandler(e) {
         //console.log('fileUploadstart')
@@ -78,17 +74,22 @@ define(function (require) {
       }
 
       function onLoadHandler(e) {
-        // console.log('fileUpload')
         component.trigger('fileUpload');
       }
 
+      function onErrorHandler(e) {
+        console.log('error')
+        component.trigger('fileUploadError');
+      }
+
       function onProgressHandler(e) {
-        // var percent = e.loaded / e.total * 100;
+        var percent = e.loaded / e.total * 100;
 
         component.trigger('fileUploadProgress', {
-          percent: 20
+          percent: percent
         });
       }
+
     }
 
     this.after('initialize', function () {

@@ -14,7 +14,7 @@ define(function (require) {
     this.defaultAttrs({
       titleEl: '[data-attr]',
       imageUploader: '[data-uploader]',
-      fileUploadPath: '/api/images',
+      fileUploadPath: '/api/images_',
       template: 'articles/show'
     });
 
