@@ -19,17 +19,20 @@ define(function(require) {
 
     describe('image uploader with images', function() {
 
-      var doneEventSpy;
-      var uploadStartEventSpy;
+      var fixtures = require('fixtures/images');
+      var image = fixtures.image;
+
+
       var fileUploadProgressSpy;
-      var fileUploadEventSpy;
+      var fileUploadSpy;
       var fileUploadErrorSpy;
+
       var request;
 
       var ajaxResponse = {
         done: {
           status: 200,
-          responseText: 'fibble'
+          responseText: JSON.stringify(image)
         },
         fail: {
           status: 500,
@@ -43,20 +46,22 @@ define(function(require) {
           fileUploadPath: '/api/images'
         });
 
-        uploadStartEventSpy = spyOnEvent(document, 'fileUploadstart');
         fileUploadProgressSpy = spyOnEvent(document, 'fileUploadProgress');
-        fileUploadEventSpy = spyOnEvent(document, 'fileUpload');
+        fileUploadSpy = spyOnEvent(document, 'fileUpload');
         fileUploadErrorSpy = spyOnEvent(document, 'fileUploadError');
 
         this.component.trigger('uploadFile', {
-          file: 'image'
+          file: 'image',
+          xhr: {
+            url: '/api/images'
+          },
+          progress: 'fileUploadProgress',
+          events: {
+            done: 'fileUpload',
+            fail: 'fileUploadError'
+          }
         });
         request = mostRecentAjaxRequest();
-      });
-
-      it('triggers "fileUploadstart"', function() {
-        request.response(ajaxResponse.done);
-        expect(uploadStartEventSpy).toHaveBeenTriggeredOn(document);
       });
 
       it('triggers "fileUploadProgressSpy"', function() {
@@ -64,15 +69,15 @@ define(function(require) {
         expect(fileUploadProgressSpy).toHaveBeenTriggeredOn(document);
       });
 
-      it('triggers "fileUploadEventSpy"', function() {
+      it('triggers "fileUploadSpy"', function() {
         request.response(ajaxResponse.done);
-        expect(fileUploadEventSpy).toHaveBeenTriggeredOn(document);
+        expect(fileUploadSpy).toHaveBeenTriggeredOn(document);
       });
 
-      // it('triggers "fileUploadError"', function() {
-      //   request.response(ajaxResponse.fail);
-      //   expect(fileUploadErrorSpy).toHaveBeenTriggeredOn(document);
-      // });
+      it('triggers "fileUploadError"', function() {
+        request.response(ajaxResponse.fail);
+        expect(fileUploadErrorSpy).toHaveBeenTriggeredOn(document);
+      });
 
       it('returns the correct url, status and method on success', function() {
         request.response(ajaxResponse.done);

@@ -16,85 +16,63 @@ define(function (require) {
       var name = 'uploader_' + this.identity;
       this.attr.fileInput = $('<input multiple type="file" name="' + name + '" id="' + name + '">');
 
-      // On change, grabs the file list
-      this.attr.fileInput.on('change', function(){
-        var files = this.files;
-        Array.prototype.forEach.call(files, function(file){
-          self.trigger('uploadFile', {
-            file: file
-          });
-        });
-        // console.log(self.attr);
-      });
     };
 
-    // Triggers the file dialog
-    this.triggerUpload = function(data) {
-      this.attr.uploadFormData = data;
-      this.attr.fileInput.trigger('click');
-    };
-
-    this.upload = function(e, data){
-      if (!this.attr.fileUploadPath) {
-        throw 'you must specify a path to upload to';
-      }
+    this.post = function(e, options){
+      // if (!this.attr.fileUploadPath) {
+      //   throw 'you must specify a path to upload to';
+      // }
+      var events = options.events;
       var component = this;
+
       var fileData = new FormData();
-      // fileData.append('filename', file.name);
-      // fileData.append('mimetype', file.type);
-      fileData.append('image[file]', data.file);
+      fileData.append('image[file]', options.file);
       // fileData.append('size', file.size);
 
-      $.ajax({
-        url: this.attr.fileUploadPath,
-        type: 'POST',
-        data: fileData,
+      var xhr = $.extend(options.xhr, {
+        context: this,
         contentType: false,
         cache: false,
+        type: 'POST',
+        data: fileData,
         processData: false,
         xhr: function() {
           var _xhr = $.ajaxSettings.xhr();
 
-          if (_xhr.upload) {
-            _xhr.upload.addEventListener('progress', onProgressHandler, false);
-            _xhr.upload.addEventListener('loadstart', onLoadstartHandler, false);
-            _xhr.upload.addEventListener('load', onLoadHandler, false);
-            // _xhr.upload.addEventListener('error', onErrorHandler, false);
+          if (_xhr.upload && options.progress) {
+            _xhr.upload.addEventListener('progress', function(e){
+
+              component.trigger(options.progress, {
+                progress: e.loaded / e.total * 100
+              })
+            }, false);
           }
-          // _xhr.addEventListener('error', onErrorHandler, false);
+
           return _xhr;
         }
       });
 
-      function onLoadstartHandler(e) {
-        //console.log('fileUploadstart')
-        component.trigger('fileUploadstart', {
-          file: data.file
-        });
+      var request = $.ajax(xhr);
+
+      for (var e in events) {
+        request[e]($.proxy(function() {
+          var args = [].slice.call(arguments);
+          var event = args.shift();
+
+          if (typeof event === 'string') {
+            this.trigger(event, args);
+          } else if (typeof event === 'object') {
+            this.trigger(event.node, event.event, args);
+          }
+        }, this, events[e]));
       }
 
-      function onLoadHandler(e) {
-        component.trigger('fileUpload');
-      }
-
-      function onErrorHandler(e) {
-        console.log('error')
-        component.trigger('fileUploadError');
-      }
-
-      function onProgressHandler(e) {
-        var percent = e.loaded / e.total * 100;
-
-        component.trigger('fileUploadProgress', {
-          percent: percent
-        });
-      }
-
+      return request;
     }
 
     this.after('initialize', function () {
       this.setup();
-      this.on('uploadFile', this.upload);
+      this.on('uploadFile', this.post);
     });
 
   }

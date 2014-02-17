@@ -14,7 +14,7 @@ define(function (require) {
     this.defaultAttrs({
       titleEl: '[data-attr]',
       imageUploader: '[data-uploader]',
-      fileUploadPath: '/api/images_',
+      fileUploadPath: '/api/images',
       template: 'articles/show'
     });
 
@@ -47,10 +47,28 @@ define(function (require) {
     // These should be another mixin, just for handling the
     // Image UI stuff
     this.uploadImage = function(e){
-      this.triggerUpload({
-        'image[caption]': 'my snappy title'
+      var self = this;
+      var fileInput = this.attr.fileInput;
+
+      fileInput.trigger('click');
+
+      fileInput.on('change', function(e){
+        var files = this.files;
+        Array.prototype.forEach.call(files, function(file){
+          self.trigger('uploadFile', {
+            file: file,
+            xhr: {
+              url: '/api/images',
+            },
+            events: {
+              done: 'fileUpload',
+              fail: 'fileUploadError'
+            }
+          });
+        });
+
       });
-    };
+    }
 
     this.after('initialize', function () {
       this.on(document, 'uiRenderPage', this.render);
